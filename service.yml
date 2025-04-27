@@ -1,0 +1,18 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "betterwellness-server"
+  namespace: "default"
+  labels:
+    app: "betterwellness-server"
+    # app.kubernetes.io/managed-by: "gcp-cloud-build-deploy"
+    # app.kubernetes.io/name: "betterwellness-server"
+    # app.kubernetes.io/version: "3752f5106bdaf4e7a24bbdc1f028285dec89a3ed"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 5000
+  selector:
+    app: "betterwellness-server"
+  type: "ClusterIP"

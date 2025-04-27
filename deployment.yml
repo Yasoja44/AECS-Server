@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: betterwellness-server
+  labels:
+    app: betterwellness-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: betterwellness-server
+  template:
+    metadata:
+      labels:
+        app: betterwellness-server
+    spec:
+      containers:
+      - name: betterwellness-server
+        image: yasoja44/betterwellness:latest
+        ports:
+        - containerPort: 5000
+        # env:
+        # - name: MONGO_URI
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: mern-secrets
+        #       key: mongo-uri
+        # - name: NODE_ENV
+        #   value: production
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10
